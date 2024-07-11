@@ -26,9 +26,10 @@ INSTALLED_APPS = [
 
     # Rest framework
     'rest_framework',
+    'drf_yasg',
 
-    # My apps
-    'analytic'
+    # Local apps
+    'analytic',
 ]
 
 MIDDLEWARE = [
@@ -104,8 +105,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_SECRET_KEY = ''

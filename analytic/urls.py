@@ -1,12 +1,20 @@
 from django.urls import path
 from .views import (
-    PostViewSet, UserViewSet,
+    AnalyticsViewSet,
 )
 
 urlpatterns = [
-    path('increment-post-view/', PostViewSet.as_view({'post': 'increment_post_view'})),
-    path('list-post-view/', PostViewSet.as_view({'post': 'analytics_post_view'})),
 
-    path('increment-user-visit/', UserViewSet.as_view({'post': 'increment_user_visit'})),
-    path('list-user-visit/', UserViewSet.as_view({'post': 'analytics_user_visit'})),
+    path('increment-post-view/', AnalyticsViewSet.as_view({'post': 'increment_post_view'})),
+    path('increment-view-by-user/', AnalyticsViewSet.as_view({'post': 'increment_view_by_user'})),
+    path('increment-view-by-gender/', AnalyticsViewSet.as_view({'post': 'increment_view_by_gender'})),
+    path('increment-view-by-age/', AnalyticsViewSet.as_view({'post': 'increment_view_by_age'})),
+    path('increment-view-by-country/', AnalyticsViewSet.as_view({'post': 'increment_view_by_country'})),
+
+    path('analytics-post-view/', AnalyticsViewSet.as_view({'get': 'analytics_post_view'})),
+    path('analytics-view-by-user/', AnalyticsViewSet.as_view({'get': 'analytics_view_by_user'})),
+    path('analytics-view-by-gender/', AnalyticsViewSet.as_view({'get': 'analytics_view_by_gender'})),
+    path('analytics-view-by-age/', AnalyticsViewSet.as_view({'get': 'analytics_view_by_age'})),
+    path('analytics-view-by-country/', AnalyticsViewSet.as_view({'get': 'analytics_view_by_country'})),
+
 ]

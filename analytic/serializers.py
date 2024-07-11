@@ -1,8 +1,26 @@
 from rest_framework.serializers import ModelSerializer
-from rest_framework import serializers
 from .models import (
-    PostView, UserVisit,
+    PostView, PostViewByUser, PostViewByAge, PostViewByCountry,
+    PostViewByGender,
 )
+
+
+class PostViewByGenderSerializer(ModelSerializer):
+    class Meta:
+        model = PostViewByGender
+        fields = ('post_id', 'gender', 'count')
+
+
+class PostViewByAgeSerializer(ModelSerializer):
+    class Meta:
+        model = PostViewByAge
+        fields = ('post_id', 'age', 'count')
+
+
+class PostViewByCountrySerializer(ModelSerializer):
+    class Meta:
+        model = PostViewByCountry
+        fields = ('post_id', 'country', 'count')
 
 
 class PostViewSerializer(ModelSerializer):
@@ -11,7 +29,7 @@ class PostViewSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class UserVisitSerializer(ModelSerializer):
+class PostViewByUserSerializer(ModelSerializer):
     class Meta:
-        model = UserVisit
+        model = PostViewByUser
         fields = '__all__'
