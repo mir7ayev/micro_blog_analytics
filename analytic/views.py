@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
-from django.shortcuts import get_object_or_404
+
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.conf import settings
@@ -225,3 +225,31 @@ class AnalyticsViewSet(ViewSet):
         analytics = PostViewByCountry.objects.all().order_by('-count')
         serializer = PostViewByCountrySerializer(analytics, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @swagger_auto_schema(
+        method='get',
+        operation_summary="Get the Amount of Registered Users",
+        operation_description="Retrieve the total number of registered users.",
+        responses={
+            status.HTTP_200_OK: openapi.Response(
+                description="The total number of registered users",
+                examples={
+                    'application/json': 1500
+                }
+            ),
+            status.HTTP_400_BAD_REQUEST: "Bad request",
+            status.HTTP_500_INTERNAL_SERVER_ERROR: "Internal server error"
+        },
+        tags=['analytics']
+    )
+    @action(detail=False, methods=['get'])
+    def analytics_amount_of_registered_users(self, request, *args, **kwargs):
+        service_access_token = self.get_service_access_token()
+        response = requests.get(
+            url="http://127.0.0.1:",
+            headers={'Authorization': f'Bearer {service_access_token}'},
+        )
+        if response.status_code != 200:
+            return Response(response.json(), status=response.status_code)
+
+        return Response(len(response.json()), status=status.HTTP_200_OK)
